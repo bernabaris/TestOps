@@ -18,7 +18,10 @@ pipeline {
 
         stage('Prepare DB') {
             steps {
-                sh "mysql -h mysql-test -u $MYSQL_CREDENTIALS_USR -p$MYSQL_CREDENTIALS_PSW < db-scripts/setup.sql"
+                withCredentials([usernamePassword(credentialsId: 'MYSQL_ROOT', passwordVariable: 'MYSQL_PASSWORD', usernameVariable: 'MYSQL_USER')]) {
+                    sh 'mysql -h mysql-test -u $MYSQL_USER -p$MYSQL_PASSWORD < db-scripts/setup.sql'
+                }
+
             }
         }
 
