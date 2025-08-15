@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/bernabaris/TestOps.git'
+            }
+        }
+
+        stage('Prepare DB') {
+            steps {
+                sh 'mysql -u root -pPASSWORD < db-scripts/setup.sql'
+            }
+        }
+
+        stage('Run SoapUI Tests') {
+            steps {
+                "C:\Program Files (x86)\SmartBear\SoapUI-5.5.0\bin\testrunner.bat" -s "TestSuite" -r -j -f reports/ soapui-tests/project.xml'
+            }
+        }
+
+        stage('Collect Reports') {
+            steps {
+                // Allure örneği
+                allure includeProperties: false, jdk: '', results: [[path: 'reports']]
+            }
+        }
+
+        stage('Notify') {
+            steps {
+                mail to: 'email@domain.com',
+                     subject: "Jenkins Build ${currentBuild.fullDisplayName}",
+                     body: "Build result: ${currentBuild.currentResult}"
+            }
+        }
+    }
+}

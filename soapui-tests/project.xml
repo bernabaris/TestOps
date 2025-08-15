@@ -1,0 +1,10 @@
+<soapui-project name="SampleProject">
+    <interface name="SampleService" type="wsdl" />
+    <testSuite name="TestSuite">
+        <testCase name="SampleTestCase">
+            <testStep type="request" name="SampleRequest">
+                <settings/>
+            </testStep>
+        </testCase>
+    </testSuite>
+</soapui-project>
