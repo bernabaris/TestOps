@@ -2,19 +2,23 @@ pipeline {
     agent any
 
     environment {
-        MYSQL_CREDENTIALS = credentials('MYSQL_ROOT')
+        MYSQL_CREDENTIALS = credentials('MYSQL_ROOT') // Jenkins'te oluşturduğun credential ID
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/bernabaris/TestOps.git'
+                // checkout scm kullanarak repo ve branch otomatik alınır
+                checkout([$class: 'GitSCM',
+                          branches: [[name: '*/master']], // GitHub'daki branch
+                          userRemoteConfigs: [[url: 'https://github.com/bernabaris/TestOps.git',
+                                               credentialsId: 'github-berna']]])
             }
         }
 
         stage('Prepare DB') {
             steps {
-                sh "mysql -u ${env.MYSQL_CREDENTIALS_USR} -p${env.MYSQL_CREDENTIALS_PSW} < db-scripts/setup.sql"
+                bat "mysql -u %MYSQL_CREDENTIALS_USR% -p%MYSQL_CREDENTIALS_PSW% < db-scripts/setup.sql"
             }
         }
 
