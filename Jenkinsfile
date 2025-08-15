@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        MYSQL_CREDENTIALS = credentials('MYSQL_ROOT')
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -10,19 +14,18 @@ pipeline {
 
         stage('Prepare DB') {
             steps {
-                sh 'mysql -u root -pPASSWORD < db-scripts/setup.sql'
+                sh "mysql -u ${env.MYSQL_CREDENTIALS_USR} -p${env.MYSQL_CREDENTIALS_PSW} < db-scripts/setup.sql"
             }
         }
 
         stage('Run SoapUI Tests') {
             steps {
-                "C:\Program Files (x86)\SmartBear\SoapUI-5.5.0\bin\testrunner.bat" -s "TestSuite" -r -j -f reports/ soapui-tests/project.xml'
+                bat '"C:\\Program Files (x86)\\SmartBear\\SoapUI-5.5.0\\bin\\testrunner.bat" -s "TestSuite" -r -j -f reports/ soapui-tests/project.xml'
             }
         }
 
         stage('Collect Reports') {
             steps {
-                // Allure örneği
                 allure includeProperties: false, jdk: '', results: [[path: 'reports']]
             }
         }
