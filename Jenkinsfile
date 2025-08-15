@@ -18,7 +18,7 @@ pipeline {
 
         stage('Prepare DB') {
             steps {
-                bat "mysql -u %MYSQL_CREDENTIALS_USR% -p%MYSQL_CREDENTIALS_PSW% < db-scripts/setup.sql"
+                sh "mysql -u %MYSQL_CREDENTIALS_USR% -p%MYSQL_CREDENTIALS_PSW% < db-scripts/setup.sql"
             }
         }
 
