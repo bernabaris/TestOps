@@ -27,7 +27,8 @@ pipeline {
 
         stage('Run SoapUI Tests') {
             steps {
-                sh '/home/jenkins/SoapUI-5.9.0/bin/testrunner.sh -s "TestSuite" -r -j -f reports/ soapui-tests/project.xml'
+                sh '/var/jenkins_home/SoapUI-5.9.0/bin/testrunner.sh -s "TestSuite" -r -j -f reports/ soapui-tests/project.xml'
+
             }
         }
 
