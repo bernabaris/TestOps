@@ -27,7 +27,7 @@ pipeline {
 
         stage('Run SoapUI Tests') {
             steps {
-                bat '"C:\\Program Files (x86)\\SmartBear\\SoapUI-5.5.0\\bin\\testrunner.bat" -s "TestSuite" -r -j -f reports/ soapui-tests/project.xml'
+                sh '"C:\\Program Files (x86)\\SmartBear\\SoapUI-5.5.0\\bin\\testrunner.bat" -s "TestSuite" -r -j -f reports/ soapui-tests/project.xml'
             }
         }
 
