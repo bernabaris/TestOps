@@ -1,10 +1,10 @@
-<soapui-project name="SampleProject">
-    <interface name="SampleService" type="wsdl" />
-    <testSuite name="TestSuite">
-        <testCase name="SampleTestCase">
-            <testStep type="request" name="SampleRequest">
-                <settings/>
-            </testStep>
-        </testCase>
-    </testSuite>
-</soapui-project>
+<con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="SampleProject">
+    <con:interface name="SampleService" type="wsdl" />
+    <con:testSuite name="TestSuite">
+        <con:testCase name="SampleTestCase">
+            <con:testStep type="request" name="SampleRequest">
+                <con:settings/>
+            </con:testStep>
+        </con:testCase>
+    </con:testSuite>
+</con:soapui-project>
