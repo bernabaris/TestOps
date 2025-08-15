@@ -1,5 +1,5 @@
 <con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="SampleProject">
-    <con:interface name="SampleService" type="wsdl" />
+    <con:interface name="SampleService" type="wsdl"/>
     <con:testSuite name="TestSuite">
         <con:testCase name="SampleTestCase">
             <con:testStep type="request" name="SampleRequest">
