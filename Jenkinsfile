@@ -37,13 +37,5 @@ pipeline {
                 allure includeProperties: false, jdk: '', results: [[path: 'reports']]
             }
         }
-
-        stage('Notify') {
-            steps {
-                mail to: 'email@domain.com',
-                     subject: "Jenkins Build ${currentBuild.fullDisplayName}",
-                     body: "Build result: ${currentBuild.currentResult}"
-            }
-        }
     }
 }
