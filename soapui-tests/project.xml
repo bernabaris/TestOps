@@ -1,9 +1,27 @@
-<con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="SampleProject">
-    <con:interface name="SampleService" type="wsdl"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="CalculatorProject">
+    <con:interface name="CalculatorService" type="wsdl" definition="http://www.dneonline.com/calculator.asmx?wsdl"/>
     <con:testSuite name="TestSuite">
-        <con:testCase name="SampleTestCase">
-            <con:testStep type="request" name="SampleRequest">
-                <con:settings/>
+        <con:testCase name="AddTestCase">
+            <con:testStep type="request" name="AddRequest">
+                <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <con:interface>CalculatorService</con:interface>
+                    <con:operation>Add</con:operation>
+                    <con:request>
+                        <![CDATA[
+                            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                                              xmlns:web="http://tempuri.org/">
+                               <soapenv:Header/>
+                               <soapenv:Body>
+                                  <web:Add>
+                                     <web:intA>5</web:intA>
+                                     <web:intB>3</web:intB>
+                                  </web:Add>
+                               </soapenv:Body>
+                            </soapenv:Envelope>
+                        ]]>
+                    </con:request>
+                </con:config>
             </con:testStep>
         </con:testCase>
     </con:testSuite>
